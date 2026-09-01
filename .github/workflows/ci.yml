@@ -1,0 +1,41 @@
+name: CI - קימפול ובדיקות
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # שלב 1: הורדת הקוד מהריפו
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # שלב 2: התקנת Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # שלב 3: התקנת תלויות (typescript וכו')
+      - name: Install dependencies
+        run: npm install
+
+      # שלב 4: קימפול בפועל - TypeScript -> JavaScript
+      - name: Compile TypeScript
+        run: npm run build
+
+      # שלב 5: הרצת הבדיקות על הקוד המקומפל
+      - name: Run tests
+        run: npm test
+
+      # שלב 6: שמירת התוצרים המקומפלים - כאן רואים את זה ב-GitHub!
+      - name: Upload compiled files
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-output
+          path: dist/
