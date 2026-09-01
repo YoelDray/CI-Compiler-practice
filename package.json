@@ -1,0 +1,13 @@
+{
+  "name": "ts-ci-practice",
+  "version": "1.0.0",
+  "description": "תרגול CI עם קימפול TypeScript",
+  "scripts": {
+    "build": "tsc",
+    "test": "node dist/test.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}
